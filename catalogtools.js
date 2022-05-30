@@ -1,4 +1,4 @@
-// @name         PCE Sheet Tools
+// @name         Sheet Tools
 // @version      5.0b
 // @description  Several functionalities used in Catalog Administration
 // @author       Iulian Ichim
@@ -16,7 +16,7 @@
 
 function onOpen(e) {
   var ui = SpreadsheetApp.getUi();
-  ui.createMenu('PCE - Sheet Tools')
+  ui.createMenu('Sheet Tools')
     .addItem('Values Menu', 'ValuesAggregatorSidebar')
     .addItem('Sheet Splitter', 'ShowSplitSheetSidebar')
     .addSeparator()
@@ -44,7 +44,7 @@ function onOpen(e) {
       .addItem('Remove All Named Ranges', 'removeAllNamedRanges')
       .addItem('Adds Range Validation Based on Adjacent Cells` Value Named Range', 'addAttributeValidation'))
     .addSeparator()
-    .addItem('About me', 'IAmPCETools')
+    .addItem('About me', 'IAmSheetTools')
     .addToUi();
 }
 
@@ -130,7 +130,7 @@ function ConvertRangeToCsvFile_(csvFileName, sheet) {
 
 
 /**
- * WARNING - using this in large ranges severly slows down proccessing. Returns normalized string from a string that contains diacritics - should be used as function from PCETools.
+ * WARNING - using this in large ranges severly slows down proccessing. Returns normalized string from a string that contains diacritics - should be used as function from Sheet Tools.
  * It splits letters by their graphenes then it replaces graphenes with '', leaving only the letter behind. Does not replace non-diacritics.
  *
  * @param {"string with diacritics"} currentValue REQUIRED Must be a string located in a cell/cell range
@@ -213,7 +213,7 @@ function RemoveMappedChars(currentValue) {
  * Replaces unicode characters defined in a charMap with their latin equivalent. Useful for replacing diacritics and cyrilic alphabet.
  * Used strictly as a formula. Using cell ranges greatly increases the time of execution.
  *
- * @param {"https://www.pce.ro"} word REQUIRED String to be replaced
+ * @param {"https://www.website.com"} word REQUIRED String to be replaced
  * @return Returns replaced string.
  * @customfunction
  */

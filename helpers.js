@@ -12,7 +12,7 @@
 /**
  * Add permission to given email address across all protected ranges.
  *
- * @param {"ii@pce.ro"} email_address Email address of user to give permissions to.
+ * @param {"email@gmail.com"} email_address Email address of user to give permissions to.
  * @return Returns a Helper Menu
  * @customfunction
  */
@@ -37,7 +37,7 @@ function SetPermission(email_address) {
  * @customfunction
  */
 
-function IAmPCETools() {
+function IAmSheetTools() {
 
   var html = HtmlService.createHtmlOutputFromFile('help_me')
     .setWidth(800)
@@ -51,7 +51,7 @@ function IAmPCETools() {
 /**
  * Returns HTTP Response of URL
  *
- * @param {"https://www.pce.ro"} uri REQUIRED URL to get HTTP response from
+ * @param {"https://www.website.com"} uri REQUIRED URL to get HTTP response from
  * @return Returns the HTTP response of given URI
  * @customfunction
  */

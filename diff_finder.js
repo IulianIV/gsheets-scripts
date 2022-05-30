@@ -7,7 +7,7 @@ function ShowDiffFinderSidebar() {
     .showSidebar(HtmlService.createTemplateFromFile('diff_finder_menu')
       .evaluate()
       .setSandboxMode(HtmlService.SandboxMode.IFRAME)
-      .setTitle('PCE-PIGO Diff Finder'));
+      .setTitle('Diff Finder'));
 }
 
 /**
@@ -22,12 +22,12 @@ function checkRightSheet() {
   let alert_ui = SpreadsheetApp.getUi();
   let current_ss = SpreadsheetApp.getActiveSpreadsheet();
 
-  if (current_ss.getSheetByName("diferente_pigo_pce")){
+  if (current_ss.getSheetByName("differences")){
     exists = true;
   } else {
-    alert_ui.alert('Sheet-ul "diferente_pigo_pce" nu exista. Se genereaza acum.');
+    alert_ui.alert('Sheet-ul "differences" nu exista. Se genereaza acum.');
     let new_sheet = current_ss.insertSheet();
-    new_sheet.setName("diferente_pigo_pce");
+    new_sheet.setName("differences");
     exists = true;
   }
   
@@ -67,7 +67,7 @@ function getDiffTable() {
 
 
   let current_ss = SpreadsheetApp.getActiveSpreadsheet();
-  let current_s = current_ss.getSheetByName("diferente_pigo_pce2");
+  let current_s = current_ss.getSheetByName("differences");
 
   let last_column = getLastDataColumn(current_s);
   let last_row = getLastDataRow(current_s);
