@@ -1,4 +1,4 @@
-// @name         Sheet Tools
+// @name         PCE Sheet Tools
 // @version      5.0b
 // @description  Several functionalities used in Catalog Administration
 // @author       Iulian Ichim
@@ -16,7 +16,7 @@
 
 function onOpen(e) {
   var ui = SpreadsheetApp.getUi();
-  ui.createMenu('Sheet Tools')
+  ui.createMenu('PCE - Sheet Tools')
     .addItem('Values Menu', 'ValuesAggregatorSidebar')
     .addItem('Sheet Splitter', 'ShowSplitSheetSidebar')
     .addSeparator()
@@ -44,7 +44,7 @@ function onOpen(e) {
       .addItem('Remove All Named Ranges', 'removeAllNamedRanges')
       .addItem('Adds Range Validation Based on Adjacent Cells` Value Named Range', 'addAttributeValidation'))
     .addSeparator()
-    .addItem('About me', 'IAmSheetTools')
+    .addItem('About me', 'IAmPCETools')
     .addToUi();
 }
 
@@ -112,7 +112,7 @@ function ConvertRangeToCsvFile_(csvFileName, sheet) {
         // join each row's columns
         // add a carriage return to end of each row, except for the last one
         if (row < data.length - 1) {
-          csv += data[row].join(",") + "\r\n";
+          csv += data[row].join(",") ; // + "\r\n"
         }
         else {
           csv += data[row];
@@ -130,7 +130,7 @@ function ConvertRangeToCsvFile_(csvFileName, sheet) {
 
 
 /**
- * WARNING - using this in large ranges severly slows down proccessing. Returns normalized string from a string that contains diacritics - should be used as function from Sheet Tools.
+ * WARNING - using this in large ranges severly slows down proccessing. Returns normalized string from a string that contains diacritics - should be used as function from PCETools.
  * It splits letters by their graphenes then it replaces graphenes with '', leaving only the letter behind. Does not replace non-diacritics.
  *
  * @param {"string with diacritics"} currentValue REQUIRED Must be a string located in a cell/cell range
@@ -213,7 +213,7 @@ function RemoveMappedChars(currentValue) {
  * Replaces unicode characters defined in a charMap with their latin equivalent. Useful for replacing diacritics and cyrilic alphabet.
  * Used strictly as a formula. Using cell ranges greatly increases the time of execution.
  *
- * @param {"https://www.website.com"} word REQUIRED String to be replaced
+ * @param {"https://www.pce.ro"} word REQUIRED String to be replaced
  * @return Returns replaced string.
  * @customfunction
  */
@@ -462,3 +462,54 @@ function RemoveInStringDupplicates() {
     }
   }
 }
+
+
+/**
+ * Create a schema.org VideoObject object used in Video SEO SERP Enchancements.
+ *
+ * @param {'XXXXXX'} video_id The ID of the Video. Needed in 'thumbnails' and 'embedUrl' generation. If skipped, manual insertion of 'thumbnails' and 'embedUrl' is assumed.
+ * @param {'Product Name, 22 g'} name Name of product or video.
+ * @param {'Best Product Ever'} description Description of video or product.
+ * @param {'2022-06-25'} upload_date Upload date of the video. Must be in 'YYYY-MM-DD' format or ISO 8601.
+ * @return Returns JSON Object that can be added at product level to complete de VideoObejct schema.org SEO Object.
+ * @customfunction
+ */
+
+function CreateYoutubeJSON(video_id, name, description, upload_date) {
+
+  thumbnails = [
+    `https://i.ytimg.com/vi/${video_id}/default.jpg`,
+    `https://i.ytimg.com/vi/${video_id}/mqdefault.jpg`,
+    `https://i.ytimg.com/vi/${video_id}/hqdefault.jpg`,
+    `https://i.ytimg.com/vi/${video_id}/sddefault.jpg`,
+    `https://i.ytimg.com/vi/${video_id}/maxresdefault.jpg`
+    ]
+
+  embed_url = `https://www.youtube.com/embed/${video_id}`
+
+  upload_date = Utilities.formatDate(upload_date, "GMT+3", "yyyy-MM-dd")
+  
+  video_object = 
+  `[\n\
+    {\n\
+      "@type": "VideoObject",\n\
+      "name": "${name}",\n\
+      "description": "${description}",\n\
+      "thumbnailUrl": [\n\
+        "https://i.ytimg.com/vi/${video_id}/default.jpg",
+        "https://i.ytimg.com/vi/${video_id}/mqdefault.jpg",
+        "https://i.ytimg.com/vi/${video_id}/hqdefault.jpg",
+        "https://i.ytimg.com/vi/${video_id}/sddefault.jpg",
+        "https://i.ytimg.com/vi/${video_id}/maxresdefault.jpg"
+      ],\n\
+      "uploadDate": "${upload_date}",\n\
+      "embedUrl": "${embed_url}"\n\
+    }\n\
+  ]`
+
+  return video_object
+
+
+}
+
+
